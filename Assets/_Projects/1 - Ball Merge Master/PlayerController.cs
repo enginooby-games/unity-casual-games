@@ -19,7 +19,6 @@ namespace Project1
             var shootDir = -_rotator.transform.up;
             ball.GetComponent<Rigidbody>().AddForce(shootDir * _shootForce, _shootForceMode);
             ball.Level = level;
-            ball.transform.localScale = new(0.3f * (level + 1), 0.3f * (level + 1), 1);
         }
 
         private void Update()
