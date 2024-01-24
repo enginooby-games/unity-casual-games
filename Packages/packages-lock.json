@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.cysharp.unitask": {
+      "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "fe8bf834e604234c77a13af3e38b07a55c9a18f8"
+    },
     "com.unity.burst": {
       "version": "1.8.11",
       "depth": 1,

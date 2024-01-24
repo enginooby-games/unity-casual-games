@@ -11,6 +11,8 @@ namespace Project1
 
         public void Merge(Ball ball1, Ball ball2)
         {
+            if(ball1.Level >= PrefabBalls.Count - 1) return;
+            
             var ballPrefab = PrefabBalls[ball1.Level + 1];
             Destroy(ball1.gameObject);
             Destroy(ball2.gameObject);
