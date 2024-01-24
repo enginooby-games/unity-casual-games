@@ -38,7 +38,7 @@ namespace Project1
         private void SpawnBall()
         {
             var level = Random.Range(0, 3);
-            var prefabBall = BallManager.Instance.PrefabBalls[level];
+            var prefabBall = GameController.Instance.PrefabBalls[level];
             _currentBall = Instantiate(prefabBall, _shootPoint.transform.position, Quaternion.identity);
             _currentBall.Level = level;
             _currentBall.transform.SetParent(_shootPoint);

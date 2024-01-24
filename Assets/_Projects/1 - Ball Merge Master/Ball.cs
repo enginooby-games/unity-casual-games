@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Shared;
 using UnityEngine;
@@ -9,10 +7,12 @@ namespace Project1
     public class Ball : MonoBehaviour
     {
         [HideInInspector] public int Level;
+        [HideInInspector] public int CoinReward;
         [HideInInspector] public bool CanMerge;
 
         private async void Start()
         {
+            CoinReward = (Level + 1) * 2;
             var scale = new Vector3(0.3f * (Level + 1), 0.3f * (Level + 1), 1);
             transform.SetGlobalScale(scale);
             
@@ -32,7 +32,7 @@ namespace Project1
 
             // prevent 2-way collision
             if(transform.position.y < otherBall.transform.position.y) return;
-            BallManager.Instance.Merge(this, otherBall);
+            GameController.Instance.Merge(this, otherBall);
         }
 
         private void OnCollisionEnter(Collision collision) => HandleCollision(collision);
