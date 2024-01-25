@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Shared;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,6 +12,8 @@ namespace Project1
     {
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private Transform _rotator;
+        [SerializeField] private DOTweenAnimation _rotatorTween;
+        
         public float _shootForce = 1;
         public ForceMode _shootForceMode = ForceMode.VelocityChange;
 
@@ -23,6 +26,7 @@ namespace Project1
             SpawnBall();
             _transformConfiner = _rotator.gameObject.AddComponent<TransformConfiner>();
             _transformConfiner.ZRange = _rotationRange;
+            // RotateAuto();
         }
 
         private async Task Shoot()
@@ -59,31 +63,30 @@ namespace Project1
 
         private void Update()
         {
-            RotateToPointer();
-            // ConstraintRotation();
-            _transformConfiner.UpdateConfine();
+            // RotateToPointer();
+             // _transformConfiner.UpdateConfine();
             
             if (Input.GetMouseButtonDown(0))
             {
+                _rotatorTween.DOPause();
+            }else if (Input.GetMouseButtonUp(0))
+            {
+                _rotatorTween.DOPlay();
                 Shoot();
             }
+            
         }
 
         private void RotateToPointer()
         {
-            var pointerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var pointerPos = Input.mousePosition;
+            if (Camera.main.orthographic)
+            {
+                pointerPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
             pointerPos.z = 0;
             var dir = _rotator.transform.position - pointerPos;
             _rotator.up = dir;
-        }
-
-        private void ConstraintRotation()
-        {
-            var rot = _rotator.localEulerAngles;
-            var z = Mathf.Clamp(rot.z, _rotationRange.x, _rotationRange.y);
-            // Debug.Log($"{z}|{rot.z}|{_rotationRange.x}|{_rotationRange.y}");
-            rot.z = z;
-            _rotator.localEulerAngles = rot;
         }
     }
 }
