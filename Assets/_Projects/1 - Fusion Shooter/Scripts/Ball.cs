@@ -21,7 +21,7 @@ namespace Project1
         public async Task DelayMerge()
         {
             // continuous merging delay
-            await UniTask.Delay(1500);
+            await UniTask.Delay(1000);
             if(!this) return;
             CanMerge = true;
             GetComponent<Rigidbody>().WakeUp();

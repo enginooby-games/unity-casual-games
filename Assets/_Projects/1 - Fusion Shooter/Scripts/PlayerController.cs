@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -19,19 +18,19 @@ namespace Project1
         public ForceMode _shootForceMode = ForceMode.VelocityChange;
 
         private Ball _currentBall;
-        private Vector2 _rotationRange = new(-70, 70);
         private TransformConfiner _transformConfiner;
-        private bool _enableControl=true;
+        private bool _enableControl = true;
 
         private void Start()
         {
             MessageBroker.Default.Receive<OnGameOver>().Subscribe(_ => OnGameOver()).AddTo(this);
             MessageBroker.Default.Receive<OnGameRestart>().Subscribe(_ => OnGameRestart()).AddTo(this);
-            
+
             SpawnBall();
-            _transformConfiner = _rotator.gameObject.AddComponent<TransformConfiner>();
-            _transformConfiner.ZRange = _rotationRange;
-            // RotateAuto();
+
+            // confiner for manual rotation
+            // _transformConfiner = _rotator.gameObject.AddComponent<TransformConfiner>();
+            // _transformConfiner.ZRange = new(-70, 70);
         }
 
         private void OnGameOver()
@@ -39,7 +38,7 @@ namespace Project1
             _rotatorTween.DOPause();
             _enableControl = false;
         }
-        
+
         private void OnGameRestart()
         {
             // UTILS
@@ -47,7 +46,7 @@ namespace Project1
             {
                 Destroy(ball.gameObject);
             }
-            
+
             _rotatorTween.DOPlay();
             _enableControl = true;
             _currentBall = null;
@@ -58,10 +57,7 @@ namespace Project1
         {
             if (!_enableControl) return;
 
-            if (!_currentBall)
-            {
-                SpawnBall();
-            }
+            if (!_currentBall) return;
 
             var shootDir = -_rotator.transform.up;
             _currentBall.transform.SetParent(null);
@@ -103,8 +99,11 @@ namespace Project1
             }
         }
 
+        // manual rotation
         private void RotateToPointer()
         {
+            if (!_enableControl) return;
+
             var pointerPos = Input.mousePosition;
             if (Camera.main.orthographic)
             {
