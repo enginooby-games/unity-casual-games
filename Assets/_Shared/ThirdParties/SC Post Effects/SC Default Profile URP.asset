@@ -93,14 +93,14 @@ MonoBehaviour:
     m_Value: {fileID: 2800000, guid: 8bd158bf28fbf3d4cb9151f3c3ae5516, type: 3}
     dimension: 1
   projectionMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   blendMode:
     m_OverrideState: 0
     m_Value: 0
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.036
   brightness:
     m_OverrideState: 0
     m_Value: {x: 0, y: 1}
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a8c351b9ce52154fba0d0580007d570, type: 3}
   m_Name: Kuwahara
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 0
     m_Value: 0
@@ -401,13 +401,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ca37f13bb89c144a71832585b7a6ac, type: 3}
   m_Name: EdgeDetection
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   debug:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   mode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 3
   invertFadeDistance:
     m_OverrideState: 0
     m_Value: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
     m_Value: 1
   edgeOpacity:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.793
   sobelThin:
     m_OverrideState: 0
     m_Value: 0
