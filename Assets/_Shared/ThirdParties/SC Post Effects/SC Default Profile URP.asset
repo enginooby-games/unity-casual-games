@@ -403,11 +403,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   debug:
-    m_OverrideState: 1
-    m_Value: 0
+    m_OverrideState: 0
+    m_Value: 1
   mode:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 2
   invertFadeDistance:
     m_OverrideState: 0
     m_Value: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
     m_Value: 1
   edgeOpacity:
     m_OverrideState: 1
-    m_Value: 0.793
+    m_Value: 1
   sobelThin:
     m_OverrideState: 0
     m_Value: 0
