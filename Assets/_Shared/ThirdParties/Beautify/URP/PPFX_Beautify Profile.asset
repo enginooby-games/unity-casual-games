@@ -228,7 +228,7 @@ MonoBehaviour:
     dimension: 1
   bloomIntensity:
     m_OverrideState: 1
-    m_Value: 0.48
+    m_Value: 0.71
   bloomThreshold:
     m_OverrideState: 1
     m_Value: 0.76
@@ -508,16 +508,16 @@ MonoBehaviour:
     m_Value: 0
   depthOfField:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 1
   depthOfFieldFocusMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   depthOfFieldAutofocusMinDistance:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   depthOfFieldAutofocusMaxDistance:
-    m_OverrideState: 0
-    m_Value: 10000
+    m_OverrideState: 1
+    m_Value: 41.4
   depthOfFieldTargetFallback:
     m_OverrideState: 0
     m_Value: 0
@@ -637,10 +637,10 @@ MonoBehaviour:
     m_Value: 0.2
   purkinje:
     m_OverrideState: 0
-    m_Value: 0
-  purkinjeAmount:
-    m_OverrideState: 0
     m_Value: 1
+  purkinjeAmount:
+    m_OverrideState: 1
+    m_Value: 2.17
   purkinjeLuminanceThreshold:
     m_OverrideState: 0
     m_Value: 0.15
@@ -682,20 +682,20 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   outlineColor:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {r: 0, g: 0, b: 0, a: 0.8}
   outlineThreshold:
-    m_OverrideState: 0
-    m_Value: 0.2
+    m_OverrideState: 1
+    m_Value: 0.022
   outlineCustomize:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   outlineStageParameter:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   outlineSpread:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 1.3
   outlineBlurPassCount:
     m_OverrideState: 0
     m_Value: 1
@@ -734,7 +734,7 @@ MonoBehaviour:
     m_Value: 0.01204
   frame:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 1
   frameStyle:
     m_OverrideState: 0
     m_Value: 0
