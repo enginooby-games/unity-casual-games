@@ -74,10 +74,10 @@ namespace Project1
         {
             if (_currentBall) return;
 
-            var level = Random.Range(0, 3);
-            var prefabBall = GameController.Instance.PrefabBalls[level];
+            var level = Random.Range(0, SROptions.Current.P1_MaxLevel - 1);
+            var prefabBall = GameController.Instance.PrefabBall;
             _currentBall = Instantiate(prefabBall, _shootPoint.transform.position, Quaternion.identity);
-            _currentBall.Level = level;
+            _currentBall.SetLevel(level);
             _currentBall.transform.SetParent(_shootPoint);
             _currentBall.transform.ResetLocal();
             _currentBall.GetComponent<Rigidbody>().useGravity = false;

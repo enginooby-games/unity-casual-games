@@ -24,7 +24,7 @@ namespace Abiogenesis3d
             {
                 var asset = QualitySettings.GetRenderPipelineAssetAt(level) as UniversalRenderPipelineAsset;
 
-                if (!asset) asset = GraphicsSettings.renderPipelineAsset as UniversalRenderPipelineAsset;
+                if (!asset) asset = GraphicsSettings.defaultRenderPipeline as UniversalRenderPipelineAsset;
                 if (!asset) continue;
 
                 if (asset is UniversalRenderPipelineAsset urpAsset)

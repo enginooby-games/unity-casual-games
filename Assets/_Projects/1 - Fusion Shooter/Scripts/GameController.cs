@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Shared;
 using UniRx;
 using UnityEngine;
@@ -10,12 +9,11 @@ namespace Project1
     {
         public static GameController Instance => FindObjectOfType<GameController>();
 
-        [field: SerializeReference] public List<Ball> PrefabBalls { get; private set; } = new();
+        [field: SerializeReference] public Ball PrefabBall { get; private set; } = new();
         [field: SerializeReference] private TMPro.TMP_Text _labelCoin;
         [field: SerializeReference] private Button _buttonRestart;
 
         private int _coin;
-        private bool _destroyMaxLevelBall;
         public bool IsGameOver { get; private set; }
 
         private void Awake()
@@ -25,36 +23,37 @@ namespace Project1
                 IsGameOver = true;
                 _buttonRestart.gameObject.SetActive(true);
             }).AddTo(this);
-            
+
             _buttonRestart.OnClickAsObservable().Subscribe(_ =>
             {
-                IsGameOver = false;
-                _buttonRestart.gameObject.SetActive(false);
-                MessageBroker.Default.Publish(new OnGameRestart());
-                ResetCoin();
+              RestartGame();
             }).AddTo(this);
-            
+
             _buttonRestart.gameObject.SetActive(false);
+        }
+
+        public void RestartGame()
+        {
+            IsGameOver = false;
+            _buttonRestart.gameObject.SetActive(false);
+            MessageBroker.Default.Publish(new OnGameRestart());
+            ResetCoin();
         }
 
         private void Start()
         {
             UpdateCoin(0);
+            SRDebug.Instance.PinAllOptions("Project1");
         }
 
         public void Merge(Ball ball1, Ball ball2)
         {
-            if (ball1.Level < PrefabBalls.Count - 1)
-            {
-                var ballPrefab = PrefabBalls[ball1.Level + 1];
-                var newBall = Instantiate(ballPrefab, ball2.transform.position, Quaternion.identity);
-                newBall.Level = ball1.Level + 1;
-                newBall.DelayMerge();
-            }
-            else if (!_destroyMaxLevelBall)
-            {
-                return;
-            }
+            if (ball1.Level >= SROptions.Current.P1_MaxLevel - 1) return; // max level dont merge
+            
+            var ballPrefab = PrefabBall;
+            var newBall = Instantiate(ballPrefab, ball2.transform.position, Quaternion.identity);
+            newBall.SetLevel(ball1.Level + 1);
+            newBall.DelayMerge();
 
             UpdateCoin(ball1.CoinReward);
             Destroy(ball1.gameObject);
@@ -64,7 +63,7 @@ namespace Project1
         private void UpdateCoin(int coinToAdd)
         {
             _coin += coinToAdd;
-            _labelCoin.text = _coin.ToString();
+            _labelCoin.text = $"Score: {_coin}";
         }
 
         private void ResetCoin() => UpdateCoin(-_coin);

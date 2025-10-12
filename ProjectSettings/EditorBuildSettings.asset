@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Projects/1 - Fusion Shooter/1.unity
     guid: 3048efe66a41f054db7c7a0a85d4c02b
+  - enabled: 1
+    path: Assets/_Projects/2 - Falling Note/2.unity
+    guid: 217782ca011c79d478e18a78b3565cce
   m_configObjects: {}
