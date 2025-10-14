@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "1weifn1mKO+9Lf/kqZQG1VDA/vXSCdva/J3s/EdSnGE=",
+  "Source": "SignalRGameServer",
+  "BasePath": "_content/SignalRGameServer",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
