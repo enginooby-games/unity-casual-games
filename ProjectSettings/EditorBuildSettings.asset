@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_Projects/1 - Fusion Shooter/1.unity
-    guid: 3048efe66a41f054db7c7a0a85d4c02b
   - enabled: 1
-    path: Assets/_Projects/2 - Falling Note/2.unity
-    guid: 217782ca011c79d478e18a78b3565cce
-  m_configObjects: {}
+    path: Assets/_Projects/8 - A Star Visualizer/8.unity
+    guid: 4c6ddbc98ff69b84998909236f47f57e
+  m_configObjects:
+    com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f,
+      type: 2}
+  m_UseUCBPForAssetBundles: 0

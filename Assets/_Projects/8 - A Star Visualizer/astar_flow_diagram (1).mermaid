@@ -1,0 +1,87 @@
+graph TD
+    A[GameManager.Start] --> B[Initialize SRDebugger]
+    B --> C[GridManager.CreateGrid]
+    C --> D[Generate Cells Based on PolygonType]
+    D --> E[User Input Loop]
+    
+    E --> F{Input Type?}
+    F -->|Left Click| G[Toggle Obstacle]
+    F -->|Shift + Click| H[Set Start Cell]
+    F -->|Ctrl + Click| I[Set End Cell]
+    F -->|Right Click| J[Clear Cell]
+    
+    F -->|UI/SRDebugger| K{Action?}
+    K -->|Find Path| L[AStarPathfinder.StartPathfinding]
+    K -->|Reset| M[GameManager.RestartGame]
+    K -->|Change Width/Height| N[GridManager.ChangeGridSize]
+    K -->|Change Polygon| O[GridManager.ChangePolygonType]
+    K -->|Change Speed| P[AStarPathfinder.SetStepDelay]
+    K -->|Toggle Diagonal| Q[AStarPathfinder.SetDiagonalMovement]
+    
+    L --> R[Check Start & End Exist]
+    R -->|Missing| S[Log Warning]
+    R -->|Valid| T[Initialize Open/Closed Sets]
+    
+    T --> U[Add Start to Open Set]
+    U --> V{Open Set Empty?}
+    
+    V -->|Yes| W[No Path Found]
+    V -->|No| X[Get Lowest F-Cost Cell]
+    
+    X --> Y{Current == End?}
+    Y -->|Yes| Z[Trace Path Back to Start]
+    Y -->|No| AA[Move to Closed Set]
+    
+    AA --> AB[Show Cell as Explored]
+    AB --> AC[Wait StepDelay]
+    AC --> AD[Get Neighbors via GridManager]
+    
+    AD --> AE{For Each Neighbor}
+    AE -->|In Closed Set| AF[Skip]
+    AE -->|Valid| AG[Calculate G, H, F Costs]
+    
+    AG --> AH{Already in Open Set?}
+    AH -->|No| AI[Add to Open Set]
+    AH -->|Yes, Better Path| AJ[Update Costs & Parent]
+    AH -->|Yes, Worse Path| AK[Skip]
+    
+    AI --> AL[Show as Open]
+    AJ --> AL
+    AL --> AM[Wait StepDelay]
+    AM --> AE
+    
+    AF --> AE
+    AK --> AE
+    AE -->|Done| V
+    
+    Z --> AN[Animate Final Path]
+    AN --> AO[Show Each Cell as Path]
+    AO --> AP[Complete]
+    
+    M --> AQ[Reset All Cell States]
+    AQ --> C
+    
+    N --> C
+    O --> C
+    
+    S --> E
+    W --> E
+    AP --> E
+    G --> E
+    H --> E
+    I --> E
+    J --> E
+    P --> E
+    Q --> E
+    
+    style L fill:#4CAF50
+    style Z fill:#2196F3
+    style W fill:#F44336
+    style B fill:#FF9800
+    style M fill:#9C27B0
+    
+    subgraph "Singleton Managers"
+    AR[GameManager]
+    AS[GridManager]
+    AT[AStarPathfinder]
+    end

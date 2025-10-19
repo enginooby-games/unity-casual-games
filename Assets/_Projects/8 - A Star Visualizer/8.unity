@@ -919,7 +919,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -139.8, y: 0}
+  m_AnchoredPosition: {x: -139.79999, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1553856979
@@ -942,7 +942,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: "<b>Controls:</b>\n\u2022 <b>Left Click:</b> Toggle Obstacle\n\u2022 <b>Shift
+    + Click:</b> Set Start (Green)\n\u2022 <b>Ctrl + Click:</b> Set End (Red)\n\u2022
+    <b>Right Click:</b> Clear Cell"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b85fdecab89781240836fb3b04bfd98d, type: 2}
   m_sharedMaterial: {fileID: 1951551525062246023, guid: b85fdecab89781240836fb3b04bfd98d,
@@ -970,8 +972,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.9
-  m_fontSizeBase: 54.9
+  m_fontSize: 36.83
+  m_fontSizeBase: 36.83
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
