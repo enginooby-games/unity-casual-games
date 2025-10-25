@@ -9,6 +9,7 @@ public partial class SROptions {
     
     [Category("Project2")]
     [NumberRange(2, 7)]
+    [DisplayName("Lane amount")]
     public int P2_LaneAmount {
         get => _P2_LaneAmount;
         set {
@@ -19,6 +20,7 @@ public partial class SROptions {
     
     [Category("Project2")]
     [NumberRange(10, 300)]
+    [DisplayName("PBM")]
     public int P2_Pbm {
         get => _P2_Bpm;
         set {
@@ -29,6 +31,7 @@ public partial class SROptions {
     
     [Category("Project2")]
     [NumberRange(1, 5)]
+    [DisplayName("Max concurrent note")]
     public int P2_MaxConcurrentNotes {
         get => _P2_MaxConcurrentNotes;
         set {
@@ -39,6 +42,7 @@ public partial class SROptions {
     
     [Category("Project2")]
     [NumberRange(1f, 20f)]
+    [DisplayName("Note speed")]
     public float P2_NoteSpeed {
         get => _P2_NoteSpeed;
         set {

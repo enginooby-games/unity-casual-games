@@ -1,0 +1,134 @@
+graph TB
+    subgraph "INPUT LAYER"
+        IH[InputHandler]
+        IH_PD[OnPointerDown]
+        IH_D[OnDrag]
+        IH_PU[OnPointerUp]
+    end
+    
+    subgraph "MANAGER LAYER - DrawingManager"
+        DM[DrawingManager Instance]
+        DM_SD[StartDrawing<br/>1. SaveStateForUndo<br/>2. Call Canvas.StartDrawing]
+        DM_CD[ContinueDrawing<br/>Forward to Canvas]
+        DM_ED[EndDrawing<br/>Forward to Canvas]
+        DM_SSU[SaveStateForUndo<br/>1. GetCanvasSnapshot<br/>2. Push to undoStack<br/>3. Limit to MAX 20<br/>4. Clear redoStack]
+        DM_U[Undo<br/>1. Check undoStack<br/>2. Save current to redoStack<br/>3. Pop & restore<br/>4. Destroy old texture]
+        DM_R[Redo<br/>1. Check redoStack<br/>2. Save current to undoStack<br/>3. Pop & restore<br/>4. Destroy old texture]
+        DM_SC[SetColor<br/>Update currentColor<br/>Disable eraser]
+        DM_SB[SetBrushSize<br/>Clamp 1-50]
+        DM_SE[SetEraser<br/>Toggle isEraser flag]
+        DM_CC[ClearCanvas<br/>1. SaveStateForUndo<br/>2. Canvas.Clear<br/>3. Clear redoStack]
+        DM_GAI[GenerateAIImage<br/>1. GetCanvasSnapshot<br/>2. Call AIManager<br/>3. Destroy snapshot]
+        DM_OAIG[OnAIImageGenerated<br/>1. SaveStateForUndo<br/>2. Restore canvas<br/>3. Notify UI<br/>4. Destroy texture]
+    end
+    
+    subgraph "CANVAS LAYER - DrawingCanvas"
+        DC[DrawingCanvas]
+        DC_SD[StartDrawing<br/>1. ScreenToTexturePos<br/>2. Validate position<br/>3. Set isDrawing=true<br/>4. DrawPoint]
+        DC_CD[ContinueDrawing<br/>1. Check isDrawing<br/>2. ScreenToTexturePos<br/>3. DrawLine interpolation]
+        DC_ED[EndDrawing<br/>Set isDrawing=false]
+        DC_DP[DrawPoint<br/>1. Loop brush radius<br/>2. Circle check: x²+y²≤r²<br/>3. SetPixel per point<br/>4. Apply texture]
+        DC_DL[DrawLine<br/>1. Calc distance<br/>2. Steps = ceil distance<br/>3. Lerp between points<br/>4. DrawPoint each step]
+        DC_STP[ScreenToTexturePosition<br/>1. RectTransform local point<br/>2. Normalize 0-1<br/>3. Scale to texture size]
+        DC_C[Clear<br/>1. Create white pixel array<br/>2. SetPixels all<br/>3. Apply]
+        DC_GCS[GetCanvasSnapshot<br/>1. Create new Texture2D<br/>2. Copy all pixels<br/>3. Apply<br/>4. Return clone]
+        DC_RFS[RestoreFromSnapshot<br/>1. Validate dimensions<br/>2. SetPixels from snapshot<br/>3. Apply]
+    end
+    
+    subgraph "UI LAYER - UIManager"
+        UI[UIManager]
+        UI_I[Initialize<br/>1. SetupButtons<br/>2. SetupColorPalette<br/>3. SetupBrushSizeSlider<br/>4. SetupAIPanel<br/>5. Update displays]
+        UI_SCP[SetupColorPalette<br/>1. Loop 10 colors<br/>2. Set button image color<br/>3. AddListener per button<br/>4. Update current display]
+        UI_OCB[OnColorButtonClicked<br/>1. Call DM.SetColor<br/>2. Update color display]
+        UI_OBB[OnBrushButtonClicked<br/>Call DM.SetEraser false]
+        UI_OEB[OnEraserButtonClicked<br/>Call DM.SetEraser true]
+        UI_OCBC[OnClearButtonClicked<br/>Call DM.ClearCanvas]
+        UI_OUB[OnUndoButtonClicked<br/>Call DM.Undo]
+        UI_ORB[OnRedoButtonClicked<br/>Call DM.Redo]
+        UI_OBS[OnBrushSizeChanged<br/>1. Round slider value<br/>2. Call DM.SetBrushSize<br/>3. Update text display]
+        UI_UTD[UpdateToolDisplay<br/>Show/hide brush/eraser indicators]
+        UI_UURB[UpdateUndoRedoButtons<br/>Enable/disable based on stack state]
+        UI_OGAIB[OnGenerateAIButtonClicked<br/>1. Show AI panel<br/>2. Clear status]
+        UI_OCG[OnConfirmGenerateClicked<br/>1. Get prompt text<br/>2. Show loading<br/>3. Disable button<br/>4. Call DM.GenerateAIImage]
+        UI_OAGC[OnAIGenerationComplete<br/>1. Hide loading<br/>2. Show status message<br/>3. Enable button<br/>4. Auto-close after 2s]
+    end
+    
+    subgraph "AI LAYER - AIGeneratorManager"
+        AI[AIGeneratorManager Instance]
+        AI_GFD[GenerateFromDrawing<br/>1. Check isGenerating<br/>2. Validate API key<br/>3. Start coroutine]
+        AI_GIC[GenerateImageCoroutine<br/>1. Encode texture to PNG<br/>2. Convert to base64<br/>3. Build JSON request<br/>4. POST to API<br/>5. Handle response]
+        AI_PFR[PollForResult<br/>1. Wait 2 seconds<br/>2. GET fetch endpoint<br/>3. Check status<br/>4. Retry up to 60 times<br/>5. Download when ready]
+        AI_DI[DownloadImage<br/>1. GET image URL<br/>2. Convert to Texture2D<br/>3. Call success callback<br/>4. Set isGenerating=false]
+    end
+    
+    subgraph "DATA STRUCTURES"
+        US[undoStack<br/>Stack Texture2D<br/>Max 20 states]
+        RS[redoStack<br/>Stack Texture2D<br/>Cleared on new action]
+        CT[canvasTexture<br/>Texture2D 1024x1024<br/>RGBA32]
+    end
+    
+    IH_PD -->|screenPos| DM_SD
+    IH_D -->|screenPos| DM_CD
+    IH_PU --> DM_ED
+    
+    DM_SD -->|pos,color,size,eraser| DC_SD
+    DM_CD -->|pos,color,size,eraser| DC_CD
+    DM_ED --> DC_ED
+    
+    DC_SD --> DC_DP
+    DC_CD --> DC_DL
+    DC_DL --> DC_DP
+    DC_DP --> CT
+    
+    DM_SSU --> DC_GCS
+    DC_GCS -->|clone| US
+    DM_U --> US
+    DM_U --> RS
+    DM_U --> DC_RFS
+    DM_R --> RS
+    DM_R --> US
+    DM_R --> DC_RFS
+    
+    UI_OCB --> DM_SC
+    UI_OBB --> DM_SE
+    UI_OEB --> DM_SE
+    UI_OCBC --> DM_CC
+    DM_CC --> DM_SSU
+    DM_CC --> DC_C
+    DC_C --> CT
+    
+    UI_OUB --> DM_U
+    UI_ORB --> DM_R
+    UI_OBS --> DM_SB
+    
+    UI_OGAIB -.->|Show Panel| UI_OCG
+    UI_OCG --> DM_GAI
+    DM_GAI --> DC_GCS
+    DM_GAI --> AI_GFD
+    AI_GFD --> AI_GIC
+    AI_GIC --> AI_PFR
+    AI_PFR --> AI_DI
+    AI_DI -->|Texture2D| DM_OAIG
+    DM_OAIG --> DM_SSU
+    DM_OAIG --> DC_RFS
+    DM_OAIG --> UI_OAGC
+    
+    DM_SC --> UI_UTD
+    DM_SE --> UI_UTD
+    
+    style IH fill:#ff6b9d
+    style DM fill:#4a9eff
+    style DC fill:#66cc99
+    style UI fill:#ffaa66
+    style AI fill:#9b59b6
+    style US fill:#e74c3c
+    style RS fill:#e74c3c
+    style CT fill:#3498db
+    
+    style DM_SSU fill:#f39c12
+    style DM_U fill:#f39c12
+    style DM_R fill:#f39c12
+    style DC_DP fill:#27ae60
+    style DC_DL fill:#27ae60
+    style AI_GIC fill:#8e44ad
+    style AI_PFR fill:#8e44ad
