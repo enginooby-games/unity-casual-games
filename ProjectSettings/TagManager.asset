@@ -7,6 +7,8 @@ TagManager:
   - HitZone
   - FinishLine
   - Checkpoint
+  - Car
+  - Coin
   layers:
   - Default
   - TransparentFX
