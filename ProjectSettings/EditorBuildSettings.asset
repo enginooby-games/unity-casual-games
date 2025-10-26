@@ -11,9 +11,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Projects/1 - Fusion Shooter/1.unity
     guid: 3048efe66a41f054db7c7a0a85d4c02b
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Projects/2 - Falling Note/2.unity
     guid: 217782ca011c79d478e18a78b3565cce
+  - enabled: 0
+    path: Assets/_Projects/5 - Rush Hour/5.unity
+    guid: 3b2ada957e11c01448ad0fe232782036
+  - enabled: 1
+    path: Assets/_Projects/10 - Video Chat/Client/10.unity
+    guid: 54846ca8776b56a4799729c85d8eac23
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f,
       type: 2}
