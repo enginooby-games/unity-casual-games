@@ -50,7 +50,7 @@ public partial class SROptions
     }
 
     [Category("AStarVisualizer")]
-    [DisplayName("Polygon Type (0=Square, 1=Hexagon)")]
+    [DisplayName("Square/Hexagon")]
     [NumberRange(0, 1)]
     public int AStarVisualizer_PolygonType
     {
@@ -63,7 +63,7 @@ public partial class SROptions
     }
 
     [Category("AStarVisualizer")]
-    [DisplayName("Allow Diagonal Movement")]
+    [DisplayName("Diagonal Movement")]
     public bool AStarVisualizer_AllowDiagonal
     {
         get => aStarVisualizer_AllowDiagonal;

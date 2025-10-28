@@ -1,0 +1,22 @@
+Reactorcore Art (RC Art)
+==
+PACK: Human Paperdoll
+
+--
+
+Pixel-art sprites pack depicting a composite Human Paperdoll character, including a simple set of clothes and backwear. You can use it as a paperdoll in character customization menus, use the art for a physics ragdoll or generally create poses for ingame billboards or what have you.
+
+--
+
+Drawn with a '32 pixels per meter' scale. Rough estimate, not meticulous accuracy, stylized intentionally to be slightly cartoony to make head large enough to clearly show visible facial features at such a small scale.
+
+--
+
+By default in image import settings, all sprites/textures have been set to 32 pixels per unit and using a point filter so they appear crisp.
+
+--
+
+Contact:
+mailto:reactorcoregames@gmail.com
+
+Enjoy!

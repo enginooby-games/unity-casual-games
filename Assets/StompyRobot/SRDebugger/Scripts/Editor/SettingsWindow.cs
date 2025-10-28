@@ -657,7 +657,7 @@
             EditorGUI.EndDisabledGroup();
 
             Settings.Instance.UIScale =
-                EditorGUILayout.Slider(new GUIContent("UI Scale"), Settings.Instance.UIScale, 1f, 3f);
+                EditorGUILayout.Slider(new GUIContent("UI Scale"), Settings.Instance.UIScale, 0.1f, 3f);
 
             EditorGUILayout.Separator();
             GUILayout.Label("Enabled Tabs", SRDebugEditorUtil.Styles.InspectorHeaderStyle);

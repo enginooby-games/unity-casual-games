@@ -11,7 +11,6 @@ namespace Devdy.AStarVisualizer
         private void Start()
         {
             InitializeSRDebugger();
-            Debug.Log(9999);
         }
 
         private void InitializeSRDebugger()

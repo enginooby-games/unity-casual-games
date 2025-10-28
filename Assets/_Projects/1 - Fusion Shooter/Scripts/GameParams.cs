@@ -12,6 +12,7 @@ public partial class SROptions {
     private int _P1_MaxLevel = 4;
 
     [Category("Project1")]
+    [DisplayName("Destroy Max Level")]
     public bool P1_DestroyMaxLevel {
         get => _p1DestroyMaxLevel;
         set {
@@ -22,6 +23,7 @@ public partial class SROptions {
     }
     
     [Category("Project1")]
+    [DisplayName("Max Level")]
     [NumberRange(1, 10)]
     public int P1_MaxLevel {
         get => _P1_MaxLevel;
