@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072ade3ec9a217c4385f4a50204e8e0b, type: 3}
+  m_Name: LayerData_Cherry
+  m_EditorClassIdentifier: Assembly-CSharp::Devdy.BirthdayCake.LayerData
+  Type: 4
+  Prefab: {fileID: 1741257111695543924, guid: 343850f4b5744b643b869c74ff67aae3, type: 3}
+  Icon: {fileID: 0}
+  Mass: 0.5
+  Size: {x: 1.5, y: 0.4}

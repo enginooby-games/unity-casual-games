@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using TMPro;
@@ -409,3 +410,4 @@ namespace Devdy
         #endregion ==================================================================
     }
 }
+#endif
